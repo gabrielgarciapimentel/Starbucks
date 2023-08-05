@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.backgroundColor = .purple
+        window?.backgroundColor = .systemBackground
         
         let homeVC = HomeViewController()
         let scanVC = ScanViewController()
@@ -97,33 +97,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let giftVC = GiftViewController()
         let storeVC = StoreViewController()
         
-        let homeNC = makeNavigationController(rootViewController: homeVC)
-        let scanNC = makeNavigationController(rootViewController: scanVC)
-        let orderNC = makeNavigationController(rootViewController: orderVC)
-        let giftNC = makeNavigationController(rootViewController: giftVC)
-        let storeNC = makeNavigationController(rootViewController: storeVC)
+//        let homeNC = UINavigationController(rootViewController: homeVC)
+        let scanNC = UINavigationController(rootViewController: scanVC)
+        let orderNC = UINavigationController(rootViewController: orderVC)
+        let giftNC = UINavigationController(rootViewController: giftVC)
+        let storeNC = UINavigationController(rootViewController: storeVC)
         
         let tabBarViewController = UITabBarController()
-        tabBarViewController.viewControllers = [homeNC, scanNC, orderNC, giftNC, storeNC]
+        
+        tabBarViewController.viewControllers = [homeVC, scanNC, orderNC, giftNC, storeNC]
         
         window?.rootViewController = tabBarViewController
+        
+        tabBarViewController.tabBar.tintColor = .lightGreen
+        tabBarViewController.tabBar.isTranslucent = false
+        tabBarViewController.tabBar.backgroundColor = .systemBackground
         
         return true
     }
 }
 
-extension AppDelegate {
-    func makeNavigationController(rootViewController: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.label,
-            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title1).bold()
-        ]
-
-        navigationController.navigationBar.largeTitleTextAttributes = attrs
-        
-        return navigationController
-    }
-}
