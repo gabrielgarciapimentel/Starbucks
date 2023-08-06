@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C912754E2A7F328F00977189 /* TileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912754D2A7F328F00977189 /* TileViewController.swift */; };
+		C91275502A7F32C800977189 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912754F2A7F32C800977189 /* TileView.swift */; };
 		C92CDDB52A7EA48C005C4265 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CDDB42A7EA48C005C4265 /* HomeHeaderView.swift */; };
-		C92CDDB72A7EBFDC005C4265 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CDDB62A7EBFDC005C4265 /* TileView.swift */; };
+		C92CDDB72A7EBFDC005C4265 /* PlaceHolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CDDB62A7EBFDC005C4265 /* PlaceHolderViewController.swift */; };
 		C94CA2592A7DE50B002CA910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CA2582A7DE50B002CA910 /* AppDelegate.swift */; };
 		C94CA25D2A7DE50B002CA910 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CA25C2A7DE50B002CA910 /* HomeViewController.swift */; };
 		C94CA2622A7DE50C002CA910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C94CA2612A7DE50C002CA910 /* Assets.xcassets */; };
@@ -17,8 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C912754D2A7F328F00977189 /* TileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileViewController.swift; sourceTree = "<group>"; };
+		C912754F2A7F32C800977189 /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		C92CDDB42A7EA48C005C4265 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
-		C92CDDB62A7EBFDC005C4265 /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		C92CDDB62A7EBFDC005C4265 /* PlaceHolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderViewController.swift; sourceTree = "<group>"; };
 		C94CA2552A7DE50B002CA910 /* Starbucks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starbucks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94CA2582A7DE50B002CA910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C94CA25C2A7DE50B002CA910 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +48,9 @@
 			children = (
 				C94CA25C2A7DE50B002CA910 /* HomeViewController.swift */,
 				C92CDDB42A7EA48C005C4265 /* HomeHeaderView.swift */,
-				C92CDDB62A7EBFDC005C4265 /* TileView.swift */,
+				C92CDDB62A7EBFDC005C4265 /* PlaceHolderViewController.swift */,
+				C912754D2A7F328F00977189 /* TileViewController.swift */,
+				C912754F2A7F32C800977189 /* TileView.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -157,9 +163,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C92CDDB52A7EA48C005C4265 /* HomeHeaderView.swift in Sources */,
+				C91275502A7F32C800977189 /* TileView.swift in Sources */,
 				C94CA26E2A7DF528002CA910 /* Factories.swift in Sources */,
+				C912754E2A7F328F00977189 /* TileViewController.swift in Sources */,
 				C94CA25D2A7DE50B002CA910 /* HomeViewController.swift in Sources */,
-				C92CDDB72A7EBFDC005C4265 /* TileView.swift in Sources */,
+				C92CDDB72A7EBFDC005C4265 /* PlaceHolderViewController.swift in Sources */,
 				C94CA2592A7DE50B002CA910 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,11 +16,9 @@ class HomeViewController: StarBucksViewController {
     var headerViewTopConstraint: NSLayoutConstraint?
     
     let tiles = [
-            TileView("Star balance"),
-            TileView("Bonus star"),
-            TileView("Try these"),
-            TileView("Welcome back"),
-            TileView("Uplifting"),
+            TileViewController(title: "Breakfast mode meatless", subtitle: "Try the beyond Meat, Cheddar & Egg Breakfast Sandwich. Vegetarian and protein-packed.", imageName: "meatless"),
+            TileViewController(title: "Uplifting our communities", subtitle: "Thanks to our partners' nominations. The Starbucks Foundation is donating $145K to more than 50 local charities.", imageName: "communities"),
+            TileViewController(title: "Spend at least $15 for 50 bonus Stars", subtitle: "Collect 50 Bonus Stars when you spend at least $15 pre-tax.", imageName: "bonus"),
     ]
     
     override func viewDidLoad() {
@@ -44,7 +42,6 @@ class HomeViewController: StarBucksViewController {
 extension HomeViewController {
     func style() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.backgroundColor = .systemPink
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
