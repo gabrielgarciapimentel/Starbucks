@@ -16,6 +16,7 @@ class HomeViewController: StarBucksViewController {
     var headerViewTopConstraint: NSLayoutConstraint?
     
     let tiles = [
+        RewardTileViewController(),
             TileViewController(title: "Breakfast mode meatless", subtitle: "Try the beyond Meat, Cheddar & Egg Breakfast Sandwich. Vegetarian and protein-packed.", imageName: "meatless"),
             TileViewController(title: "Uplifting our communities", subtitle: "Thanks to our partners' nominations. The Starbucks Foundation is donating $145K to more than 50 local charities.", imageName: "communities"),
             TileViewController(title: "Spend at least $15 for 50 bonus Stars", subtitle: "Collect 50 Bonus Stars when you spend at least $15 pre-tax.", imageName: "bonus"),
@@ -45,6 +46,7 @@ extension HomeViewController {
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
         
         stackView.axis = .vertical
         stackView.spacing = 8
