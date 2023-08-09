@@ -9,11 +9,18 @@ import UIKit
 
 class HomeViewController: StarBucksViewController {
     
+    let statusBarView = UIView()
     let headerView = HomeHeaderView()
     let scrollView = UIScrollView()
     let stackView = UIStackView()
+    let scanButton = UIButton()
     
     var headerViewTopConstraint: NSLayoutConstraint?
+    
+    struct ScanButtonSpacing {
+        static let height: CGFloat = 60
+        static let width: CGFloat = 170
+    }
     
     let tiles = [
         RewardTileViewController(),
@@ -26,7 +33,7 @@ class HomeViewController: StarBucksViewController {
         super.viewDidLoad()
         
         setupScrollView()
-        
+
         style()
         layout()
     }
@@ -42,19 +49,33 @@ class HomeViewController: StarBucksViewController {
 
 extension HomeViewController {
     func style() {
-        headerView.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .backgroundWhite
+        statusBarView.backgroundColor = .white
         
+        statusBarView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
         
         stackView.axis = .vertical
         stackView.spacing = 8
+        
+        scanButton.translatesAutoresizingMaskIntoConstraints = false
+        scanButton.setTitle("Scan in store", for: .normal)
+        scanButton.titleLabel?.minimumScaleFactor = 0.5
+        scanButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
+        scanButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        scanButton.backgroundColor = .lightGreen
+        scanButton.setTitleColor(.white, for: .normal)
+        scanButton.layer.cornerRadius = ScanButtonSpacing.height/2
     }
     
     func layout() {
+        view.addSubview(statusBarView)
         view.addSubview(headerView)
         view.addSubview(scrollView)
+        view.addSubview(scanButton)
         
         scrollView.addSubview(stackView)
         
@@ -64,7 +85,14 @@ extension HomeViewController {
             tile.didMove(toParent: self)
         }
         
-        headerViewTopConstraint = headerView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1)
+        headerViewTopConstraint = headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        
+        NSLayoutConstraint.activate([
+            statusBarView.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             headerViewTopConstraint!,
@@ -86,6 +114,13 @@ extension HomeViewController {
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            scanButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scanButton.heightAnchor.constraint(equalToConstant: ScanButtonSpacing.height),
+            scanButton.widthAnchor.constraint(equalToConstant: ScanButtonSpacing.width)
         ])
     }
 }

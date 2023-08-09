@@ -68,3 +68,10 @@ func makeSymbolImageView(systemName: String, scale: UIImage.SymbolScale = .large
     
     return UIImageView(image: image)
 }
+
+public extension NSLayoutConstraint {
+    @objc func setActiveBreakable(priority: UILayoutPriority = UILayoutPriority(900)) {
+        self.priority = priority
+        isActive = true
+    }
+}

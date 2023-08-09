@@ -12,8 +12,10 @@ class RewardTileView: UIView {
     let balanceView = BalanceView()
     var rewardsButton = UIButton()
     let rewardsGraphView = RewardGraphView()
-    let starRewardsView = UIView()
+    let starRewardsView = StarRewardsView()
     var detailsButton = makeClearButton(withText: "Details")
+    
+    var heightConstraint: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -26,10 +28,10 @@ class RewardTileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO: remove color after end component
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 100, height: 300)
-    }
+//    // TODO: remove color after end component
+//    override var intrinsicContentSize: CGSize {
+//        return CGSize(width: 100, height: 300)
+//    }
 }
 
 extension RewardTileView {
@@ -76,6 +78,8 @@ extension RewardTileView {
         addSubview(starRewardsView)
         addSubview(detailsButton)
         
+        heightConstraint = starRewardsView.heightAnchor.constraint(equalToConstant: 0)
+        
         NSLayoutConstraint.activate([
             balanceView.topAnchor.constraint(equalTo: topAnchor),
             balanceView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2)
@@ -96,7 +100,8 @@ extension RewardTileView {
         NSLayoutConstraint.activate([
             starRewardsView.topAnchor.constraint(equalTo: rewardsGraphView.bottomAnchor, constant: 8),
             starRewardsView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: starRewardsView.trailingAnchor, multiplier: 1)
+            trailingAnchor.constraint(equalToSystemSpacingAfter: starRewardsView.trailingAnchor, multiplier: 1),
+            heightConstraint!
         ])
         
         NSLayoutConstraint.activate([
@@ -105,6 +110,8 @@ extension RewardTileView {
             bottomAnchor.constraint(equalToSystemSpacingBelow: detailsButton.bottomAnchor, multiplier: 2)
             
         ])
+        
+        starRewardsView.isHidden = true
     }
     
     // Redraw our graph once we know our actual device width & height
@@ -118,6 +125,36 @@ extension RewardTileView {
 
 extension RewardTileView {
     @objc func rewardOptionsTapped() {
-        print("Open starRewardsView")
+        if heightConstraint?.constant == 0 {
+            self.setChevron(image: "chevron.down")
+            
+            let heightAnimator = UIViewPropertyAnimator(duration: 0.75, curve: .easeInOut) {
+                self.heightConstraint?.constant = 270
+                self.layoutIfNeeded()
+            }
+            heightAnimator.startAnimation()
+            
+            let alphaAnimator = UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut) {
+                self.starRewardsView.isHidden = false
+                self.starRewardsView.alpha = 1
+            }
+            alphaAnimator.startAnimation(afterDelay: 0.5)
+        } else {
+            self.setChevron(image: "chevron.up")
+            
+            let animator = UIViewPropertyAnimator(duration: 0.75, curve: .easeInOut) {
+                self.heightConstraint?.constant = 0
+                self.starRewardsView.isHidden = true
+                self.starRewardsView.alpha = 0
+                self.layoutIfNeeded()
+            }
+            animator.startAnimation()
+        }
+    }
+    
+    private func setChevron(image systemName: String) {
+        let configuration = UIImage.SymbolConfiguration(scale: .small)
+        let img = UIImage(systemName: systemName, withConfiguration: configuration)
+        rewardsButton.setImage(img, for: .normal)
     }
 }
