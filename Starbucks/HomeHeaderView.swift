@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol HomeHeaderViewDelegate: AnyObject {
+    func didTapHistoryButton(_ sender: HomeHeaderView)
+}
+
 class HomeHeaderView: UIView {
     
     let greeting = UILabel()
     let inboxButton = UIButton()
+    let historyButton = UIButton()
+    
+    weak var delegate: HomeHeaderViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -33,11 +40,14 @@ extension HomeHeaderView {
         greeting.lineBreakMode = .byWordWrapping
         
         makeInboxButton()
+        makeHistoryButton()
+        historyButton.addTarget(self, action: #selector(handleHistoryButton), for: .primaryActionTriggered)
     }
     
     func layout() {
         addSubview(greeting)
         addSubview(inboxButton)
+        addSubview(historyButton)
         
         NSLayoutConstraint.activate([
             greeting.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1),
@@ -51,25 +61,50 @@ extension HomeHeaderView {
             bottomAnchor.constraint(equalToSystemSpacingBelow: inboxButton.bottomAnchor, multiplier: 1),
             inboxButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25)
         ])
+        
+        NSLayoutConstraint.activate([
+            historyButton.topAnchor.constraint(equalToSystemSpacingBelow: greeting.bottomAnchor, multiplier: 2),
+            historyButton.leadingAnchor.constraint(equalToSystemSpacingAfter: inboxButton.trailingAnchor, multiplier: 2),
+            bottomAnchor.constraint(equalToSystemSpacingBelow: inboxButton.bottomAnchor, multiplier: 1),
+            historyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25)
+        ])
+    }
+}
+
+extension HomeHeaderView {
+    func makeInboxButton() {
+        makeButton(button: inboxButton, systemName: "envelope", text: "Inbox")
+    }
+    
+    func makeHistoryButton() {
+        makeButton(button: historyButton, systemName: "calendar", text: "History")
+    }
+    
+    func makeButton(button: UIButton, systemName: String, text: String) {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let configuration = UIImage.SymbolConfiguration(scale: .large)
+        let image = UIImage(systemName: systemName, withConfiguration: configuration)
+        
+        button.setImage(image, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        
+        button.setTitle(text, for: .normal)
+        
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        buttonConfiguration.imagePadding = 16
+        buttonConfiguration.baseForegroundColor = .secondaryLabel
+        button.configuration = buttonConfiguration
+//        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+//        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
 
 // MARK: Factories
 extension HomeHeaderView {
-    func makeInboxButton() {
-        inboxButton.translatesAutoresizingMaskIntoConstraints = false
-        let configuration = UIImage.SymbolConfiguration(scale: .large)
-        let image = UIImage(systemName: "envelope", withConfiguration: configuration)
-        
-        inboxButton.setImage(image, for: .normal)
-        inboxButton.imageView?.tintColor = .secondaryLabel
-        inboxButton.imageView?.contentMode = .scaleAspectFit
-        
-        inboxButton.setTitle("Inbox", for: .normal)
-        inboxButton.setTitleColor(.secondaryLabel, for: .normal)
-        
-        inboxButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
-        inboxButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    
+    @objc func handleHistoryButton() {
+        delegate?.didTapHistoryButton(self)
     }
 }
